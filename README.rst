@@ -88,3 +88,4 @@ Examples
 
 | Case: ``version: 1.0.13+some-metadata``
 | ``pybump get --file Chart.yaml --release`` will return ``some``
+
