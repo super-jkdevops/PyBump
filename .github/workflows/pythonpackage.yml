@@ -58,11 +58,11 @@ jobs:
         fail_ci_if_error: true
         verbose: true
 
-    - name: Check distribution valid and test publish
-      run: |
-        pip install wheel twine
-        python setup.py bdist_wheel
-        twine check dist/*
+#    - name: Check distribution valid and test publish
+#      run: |
+#        pip install wheel twine
+#        python setup.py bdist_wheel
+#        twine check dist/*
 
 #  simulate:
 #    if: github.ref != 'refs/heads/master'
