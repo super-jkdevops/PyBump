@@ -64,56 +64,56 @@ jobs:
         python setup.py bdist_wheel
         twine check dist/*
 
-  simulate:
-    if: github.ref != 'refs/heads/master'
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-      - name: Check distribution valid and test publish
-        run: |
-          pip install wheel twine
-          python setup.py bdist_wheel
-          twine check dist/*
+#  simulate:
+#    if: github.ref != 'refs/heads/master'
+#    needs: test
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-python@v4
+#        with:
+#          python-version: '3.x'
+#      - name: Check distribution valid and test publish
+#        run: |
+#          pip install wheel twine
+#          python setup.py bdist_wheel
+#          twine check dist/*
+#
+#          twine upload dist/* \
+#            --username ${{ secrets.PYPI_TEST_USERNAME }} \
+#            --password ${{ secrets.PYPI_TEST_PASSWORD }} \
+#            --repository testpypi --skip-existing
+#
+#      - name: Build test docker image
+#        uses: docker/build-push-action@v3
+#        with:
+#          push: false
+#          tags: ${{ steps.app_version_bump.outputs.app_version }},latest
 
-          twine upload dist/* \
-            --username ${{ secrets.PYPI_TEST_USERNAME }} \
-            --password ${{ secrets.PYPI_TEST_PASSWORD }} \
-            --repository testpypi --skip-existing
-
-      - name: Build test docker image
-        uses: docker/build-push-action@v3
-        with:
-          push: false
-          tags: ${{ steps.app_version_bump.outputs.app_version }},latest
-
-  build:
-    if: github.ref == 'refs/heads/master'
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-      - name: Bump version using self app
-        id: app_version_bump
-        run: |
-          pip install pybump
-          echo "app_version=$(pybump bump --level patch --file setup.py)" >> $GITHUB_OUTPUT
-
-      - name: Publish to global pypi
-        run: |
-          pip install wheel twine
-          python setup.py bdist_wheel
-
-          twine upload dist/* \
-            --username ${{ secrets.PYPI_USERNAME }} \
-            --password ${{ secrets.PYPI_PASSWORD }} \
-            --repository-url https://upload.pypi.org/legacy/
+#  build:
+#    if: github.ref == 'refs/heads/master'
+#    needs: test
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-python@v4
+#        with:
+#          python-version: '3.x'
+#      - name: Bump version using self app
+#        id: app_version_bump
+#        run: |
+#          pip install pybump
+#          echo "app_version=$(pybump bump --level patch --file setup.py)" >> $GITHUB_OUTPUT
+#
+#      - name: Publish to global pypi
+#        run: |
+#          pip install wheel twine
+#          python setup.py bdist_wheel
+#
+#          twine upload dist/* \
+#            --username ${{ secrets.PYPI_USERNAME }} \
+#            --password ${{ secrets.PYPI_PASSWORD }} \
+#            --repository-url https://upload.pypi.org/legacy/
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -125,7 +125,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: arielev/pybump:${{ steps.app_version_bump.outputs.app_version }},arielev/pybump:latest
+          tags: bnpjkujawa/pybump:${{ steps.app_version_bump.outputs.app_version }},bnpjkujawa/pybump:latest
 
   commit:
     if: github.ref == 'refs/heads/master'
@@ -155,4 +155,4 @@ jobs:
           git add setup.py
           git commit -m "update version to: ${{ steps.app_version_bump.outputs.app_version }} (github action)"
 
-          git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/ArieLevs/pybump HEAD:master
+          git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/super-jkdevops/pybump HEAD:master
