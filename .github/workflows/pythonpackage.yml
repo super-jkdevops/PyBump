@@ -56,7 +56,7 @@ jobs:
 #        flags: unittests
 #        name: codecov-pybump
 #        fail_ci_if_error: true
-        verbose: true
+#        verbose: true
 
     - name: Check distribution valid and test publish
       run: |
