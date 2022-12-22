@@ -1,1 +1,29 @@
+name: Python package
 
+on:
+  push:
+    # run only when pushed to master branch.
+    branches:
+      - master
+
+    # run on every publish tags.
+    tags:
+      - v*
+  # run on any pr.
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 2
+      matrix:
+        python-version: ["3.9", "3.11"]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
