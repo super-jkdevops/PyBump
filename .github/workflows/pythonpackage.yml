@@ -125,7 +125,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: bnpkujawa/pybump:${{ steps.app_version_bump.outputs.app_version }},bnpkujawa/pybump:latest
+          tags: bnpjkujawa/pybump:${{ steps.app_version_bump.outputs.app_version }},bnpjkujawa/pybump:latest
 
   commit:
     if: github.ref == 'refs/heads/master'
