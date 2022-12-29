@@ -1,5 +1,8 @@
 FROM python:3.11-slim
 
+ARG GID=1000690000
+ARG UID=1000690000
+
 LABEL maintainer="Arie Lev <levinsonarie@gmail.com>" \
       description="Python version bumper"
       
