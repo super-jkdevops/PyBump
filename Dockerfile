@@ -2,6 +2,8 @@ FROM python:3.11-slim
 
 LABEL maintainer="Arie Lev <levinsonarie@gmail.com>" \
       description="Python version bumper"
+      
+RUN useradd -s /bin/bash -m -d /opt/gitlab-runner -u $UID -l gitlab-runner > /dev/null 2>&1      
 
 RUN apt-get update && \
     apt-get install -y git && \
