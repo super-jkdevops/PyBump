@@ -17,7 +17,7 @@ RUN curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | tee /usr/share/
    apt-get install helm
 
 # Install helm plugin
-RUN helm plugin install --version master https://github.com/sonatype-nexus-community/helm-nexus-push.git
+#RUN helm plugin install --version master https://github.com/sonatype-nexus-community/helm-nexus-push.git
 
 WORKDIR package
 
